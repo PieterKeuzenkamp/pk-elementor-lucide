@@ -234,7 +234,9 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $icon_path = plugin_dir_path(__FILE__) . '../icons/' . $settings['icon_name'] . '.svg';
         if(file_exists($icon_path)) {
             $svg = file_get_contents($icon_path);
+            echo '<script src="https://unpkg.com/lucide@latest"></script>';
             echo '<div class="lucide-icon-wrapper">' . $svg . '</div>';
+            echo '<script>lucide.createIcons();</script>';
         }
     }
 }
