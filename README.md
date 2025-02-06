@@ -32,6 +32,15 @@ Existing icon-only widgets remain unchanged
 4. Choose icon position from dropdown
 5. Customize styling in the Style tab
 
+## Changelog
+
+### 1.1.0 - 2025-02-06
+- Added heading tag selection (h1-h6/div/span)
+- Created dedicated style controls for headings
+- Fixed icon rendering using direct SVG loading
+- Added Lucide icons documentation link
+- Improved CSS for icon/heading alignment
+
 ## Support
 Report issues on [GitHub](https://github.com/PieterKeuzenkamp/pk-elementor-lucide)
 

@@ -40,6 +40,18 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'icon_docs',
+            [
+                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'raw' => sprintf(
+                    __('Browse all available icons at %s', 'lucide-icons'),
+                    '<a href="https://lucide.dev/icons/" target="_blank">lucide.dev/icons</a>'
+                ),
+                'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+            ]
+        );
+
+        $this->add_control(
             'icon_color',
             [
                 'label' => __('Icon Color', 'lucide-icons'),
@@ -160,6 +172,36 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         );
 
         $this->end_controls_section();
+
+        $this->start_controls_section(
+            'heading_style_section',
+            [
+                'label' => __('Heading Style', 'lucide-icons'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'condition' => ['show_heading' => 'yes']
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'heading_typography',
+                'selector' => '{{WRAPPER}} .lucide-heading',
+            ]
+        );
+
+        $this->add_control(
+            'heading_color',
+            [
+                'label' => __('Text Color', 'lucide-icons'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .lucide-heading' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
     }
 
     protected function render() {
@@ -189,10 +231,11 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     private function render_icon($settings) {
-        echo '<i class="lucide-icon" data-lucide="'.esc_attr($settings['icon_name']).'" 
-              style="color: '.esc_attr($settings['icon_color']).';
-                     width: '.esc_attr($settings['icon_size']['size']).'px;
-                     height: '.esc_attr($settings['icon_size']['size']).'px;"></i>';
+        $icon_path = plugin_dir_path(__FILE__) . '../icons/' . $settings['icon_name'] . '.svg';
+        if(file_exists($icon_path)) {
+            $svg = file_get_contents($icon_path);
+            echo '<div class="lucide-icon-wrapper">' . $svg . '</div>';
+        }
     }
 }
 

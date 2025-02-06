@@ -2,13 +2,15 @@
 /*
 Plugin Name: PK Elementor Lucide
 Description: Add customizable Lucide icons in Elementor widgets with advanced styling options.
-Version: 1.0
+Version: 1.1.0
 Author: Pieter Keuzenkamp
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
+
+define('PK_ELEMENTOR_LUCIDE_VERSION', '1.1.0');
 
 // Enqueue Lucide Script and Styles
 function lucide_enqueue_scripts() {
