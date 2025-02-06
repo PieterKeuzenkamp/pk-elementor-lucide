@@ -231,21 +231,20 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     private function render_icon($settings) {
-        // Get the correct path to icons directory
-        $icon_path = plugin_dir_path(__FILE__) . '../../icons/' . $settings['icon_name'] . '.svg';
-        
-        // Create directory if it doesn't exist
-        $icons_dir = dirname($icon_path);
-        if (!file_exists($icons_dir)) {
-            wp_mkdir_p($icons_dir);
-        }
+        echo '<i class="lucide lucide-' . esc_attr($settings['icon_name']) . '" 
+               style="stroke-width: ' . esc_attr($settings['icon_stroke_width']) . '; color: ' . esc_attr($settings['icon_color']) . '"></i>';
+        echo '<script>
+            if (typeof Lucide !== "undefined") {
+                Lucide.createIcons();
+            }
+        </script>';
+    }
 
-        if(file_exists($icon_path)) {
-            $svg = file_get_contents($icon_path);
+    public function __construct() {
+        parent::__construct();
+        add_action('wp_footer', function() {
             echo '<script src="https://unpkg.com/lucide@latest"></script>';
-            echo '<div class="lucide-icon-wrapper">' . $svg . '</div>';
-            echo '<script>lucide.createIcons();</script>';
-        }
+        });
     }
 }
 
