@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+
 class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     public function get_name() {
         return 'lucide_icon';
@@ -25,7 +28,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'content_section',
             [
-                'label' => __('Icon Settings', 'lucide-icons'),
+                'label' => __('Icon Settings', 'pk-elementor-lucide'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -33,18 +36,18 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'icon_name',
             [
-                'label' => __('Icon Name', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => 'camera',
+                'label' => __('Icon Name', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::TEXT,
+                'default' => 'circle', // Add default value
             ]
         );
 
         $this->add_control(
             'icon_docs',
             [
-                'type' => \Elementor\Controls_Manager::RAW_HTML,
+                'type' => Controls_Manager::RAW_HTML,
                 'raw' => sprintf(
-                    __('Browse all available icons at %s', 'lucide-icons'),
+                    __('Browse all available icons at %s', 'pk-elementor-lucide'),
                     '<a href="https://lucide.dev/icons/" target="_blank">lucide.dev/icons</a>'
                 ),
                 'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
@@ -54,8 +57,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'icon_color',
             [
-                'label' => __('Icon Color', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::COLOR,
+                'label' => __('Icon Color', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::COLOR,
                 'default' => '#000000',
                 'selectors' => [
                     '{{WRAPPER}} .lucide-icon' => 'color: {{VALUE}}',
@@ -66,8 +69,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'icon_size',
             [
-                'label' => __('Icon Size (px)', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::SLIDER,
+                'label' => __('Icon Size (px)', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'range' => [
                     'px' => [
@@ -85,8 +88,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'icon_stroke_width',
             [
-                'label' => __('Stroke Width', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::NUMBER,
+                'label' => __('Stroke Width', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::NUMBER,
                 'default' => 2,
                 'min' => 1,
                 'max' => 5,
@@ -96,8 +99,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'background_color',
             [
-                'label' => __('Background Color', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::COLOR,
+                'label' => __('Background Color', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::COLOR,
                 'default' => '#ffffff',
             ]
         );
@@ -105,16 +108,16 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'box_shadow',
             [
-                'label' => __('Box Shadow', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::BOX_SHADOW,
+                'label' => __('Box Shadow', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::BOX_SHADOW,
             ]
         );
 
         $this->add_control(
             'heading_tag',
             [
-                'label' => __('Heading Tag', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::SELECT,
+                'label' => __('Heading Tag', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::SELECT,
                 'default' => 'h2',
                 'options' => [
                     'h1' => 'H1',
@@ -133,7 +136,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
             'show_heading',
             [
                 'label' => __('Show Heading', 'pk-elementor-lucide'),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'type' => Controls_Manager::SWITCHER,
                 'label_on' => __('Yes', 'pk-elementor-lucide'),
                 'label_off' => __('No', 'pk-elementor-lucide'),
                 'return_value' => 'yes',
@@ -145,7 +148,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
             'heading_text',
             [
                 'label' => __('Heading Text', 'pk-elementor-lucide'),
-                'type' => \Elementor\Controls_Manager::TEXT,
+                'type' => Controls_Manager::TEXT,
                 'default' => 'Heading Text',
                 'condition' => [
                     'show_heading' => 'yes',
@@ -157,7 +160,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
             'icon_position',
             [
                 'label' => __('Icon Position', 'pk-elementor-lucide'),
-                'type' => \Elementor\Controls_Manager::SELECT,
+                'type' => Controls_Manager::SELECT,
                 'options' => [
                     'left' => __('Left', 'pk-elementor-lucide'),
                     'right' => __('Right', 'pk-elementor-lucide'),
@@ -176,14 +179,14 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->start_controls_section(
             'heading_style_section',
             [
-                'label' => __('Heading Style', 'lucide-icons'),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'label' => __('Heading Style', 'pk-elementor-lucide'),
+                'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => ['show_heading' => 'yes']
             ]
         );
 
         $this->add_group_control(
-            \Elementor\Group_Control_Typography::get_type(),
+    \Elementor\Group_Control_Typography::get_type(),                    
             [
                 'name' => 'heading_typography',
                 'selector' => '{{WRAPPER}} .lucide-heading',
@@ -193,8 +196,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'heading_color',
             [
-                'label' => __('Text Color', 'lucide-icons'),
-                'type' => \Elementor\Controls_Manager::COLOR,
+                'label' => __('Text Color', 'pk-elementor-lucide'),
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lucide-heading' => 'color: {{VALUE}}',
                 ],
