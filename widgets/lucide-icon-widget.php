@@ -99,6 +99,25 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'heading_tag',
+            [
+                'label' => __('Heading Tag', 'lucide-icons'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'h2',
+                'options' => [
+                    'h1' => 'H1',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                    'span' => 'Span',
+                    'div' => 'Div',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'show_heading',
             [
                 'label' => __('Show Heading', 'pk-elementor-lucide'),
@@ -155,7 +174,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
                 $this->render_icon($settings);
             }
 
-            echo '<h3 class="pk-heading-text">'.esc_html($settings['heading_text']).'</h3>';
+            $heading_tag = $settings['heading_tag'];
+            echo '<' . esc_html($heading_tag) . ' class="lucide-heading">'.esc_html($settings['heading_text']).'</' . esc_html($heading_tag) . '>';
 
             if(in_array($settings['icon_position'], ['right', 'below'])) {
                 $this->render_icon($settings);
