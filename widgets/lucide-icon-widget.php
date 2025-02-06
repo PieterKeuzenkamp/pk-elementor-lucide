@@ -231,7 +231,15 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     private function render_icon($settings) {
-        $icon_path = plugin_dir_path(__FILE__) . '../icons/' . $settings['icon_name'] . '.svg';
+        // Get the correct path to icons directory
+        $icon_path = plugin_dir_path(__FILE__) . '../../icons/' . $settings['icon_name'] . '.svg';
+        
+        // Create directory if it doesn't exist
+        $icons_dir = dirname($icon_path);
+        if (!file_exists($icons_dir)) {
+            wp_mkdir_p($icons_dir);
+        }
+
         if(file_exists($icon_path)) {
             $svg = file_get_contents($icon_path);
             echo '<script src="https://unpkg.com/lucide@latest"></script>';
