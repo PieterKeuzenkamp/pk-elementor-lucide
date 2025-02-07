@@ -19,6 +19,28 @@ function lucide_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'lucide_enqueue_scripts');
 
+// Enqueue Lucide Script and Initialization
+function enqueue_lucide_scripts() {
+  // Lucide core
+  wp_enqueue_script(
+    'lucide-core', 
+    'https://unpkg.com/lucide@latest', 
+    array(), 
+    null, 
+    false // Load in header
+  );
+  
+  // Our initialization
+  wp_enqueue_script(
+    'lucide-init',
+    plugin_dir_url(__FILE__) . 'assets/js/lucide-init.js',
+    array('lucide-core'),
+    filemtime(plugin_dir_path(__FILE__) . 'assets/js/lucide-init.js'),
+    true
+  );
+}
+add_action('wp_enqueue_scripts', 'enqueue_lucide_scripts');
+
 // Elementor Widget Registration
 add_action('elementor/widgets/widgets_registered', function() {
     if ( defined('ELEMENTOR_PATH') && class_exists('Elementor\\Widget_Base') ) {
