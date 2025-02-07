@@ -208,14 +208,31 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_settings_for_display($setting_key = null) {
-        $settings = parent::get_settings_for_display($setting_key);
-        
-        if (!is_array($settings)) {
-            error_log('[Lucide Widget] Invalid settings type: ' . gettype($settings));
+        try {
+            $settings = parent::get_settings_for_display($setting_key);
+            
+            if (!is_array($settings)) {
+                throw new \RuntimeException('Invalid settings type received');
+            }
+            
+            return array_merge($this->get_default_settings(), $settings);
+            
+        } catch (\Throwable $e) {
+            error_log('[Lucide Widget] Critical error: ' . $e->getMessage());
             return $this->get_default_settings();
         }
-        
-        return $settings;
+    }
+    
+    private function get_default_settings() {
+        return [
+            'icon_name' => 'circle',
+            'icon_stroke_width' => 2,
+            'icon_color' => '#000000',
+            'show_heading' => 'no',
+            'heading_text' => __('New Heading', 'pk-elementor-lucide'),
+            'heading_tag' => 'h2',
+            'icon_position' => 'left'
+        ];
     }
 
     protected function render() {

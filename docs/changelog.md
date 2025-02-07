@@ -1,5 +1,10 @@
 # Changelog
 
+## [Hotfix 1.1.5] - 2025-02-07
+- Added comprehensive settings validation
+- Finalized ACF dynamic tags integration
+- Implemented error recovery system
+
 ## [Hotfix 1.1.4] - 2025-02-07
 - Fixed method visibility in widget class
 

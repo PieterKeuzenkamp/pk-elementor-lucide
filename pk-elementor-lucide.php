@@ -43,7 +43,10 @@ add_action('wp_enqueue_scripts', 'enqueue_lucide_scripts');
 
 // Update ACF filter
 add_filter('elementor_pro/dynamic_tags/acf/text', function($value) {
-    return is_array($value) ? $value : [];
+  if (!is_array($value)) {
+      return ['', '', 'type' => 'text'];
+  }
+  return array_merge($value, ['type' => 'text']);
 });
 
 // Elementor Widget Registration
