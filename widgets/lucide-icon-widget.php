@@ -207,7 +207,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
-    protected function get_settings_for_display($setting_key = null) {
+    public function get_settings_for_display($setting_key = null) {
         $settings = parent::get_settings_for_display($setting_key);
         
         // Type safety check
