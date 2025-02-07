@@ -1,4 +1,5 @@
 # Todo List
 
-- [x] Implement dynamic Lucide loading
+- [x] Add null checks for icon settings
+- [ ] Investigate permanent ACF integration fix
 - [ ] Add version pinning for Lucide script
