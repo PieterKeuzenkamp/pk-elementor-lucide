@@ -209,20 +209,20 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $has_heading = $settings['show_heading'] === 'yes';
+        $has_heading = $settings['show_heading'] ?? 'no';
 
         echo '<div class="lucide-icon-container pk-position-'.$settings['icon_position'].'">';
 
-        if($has_heading) {
+        if($has_heading === 'yes') {
             echo '<div class="pk-icon-heading">';
-            if(in_array($settings['icon_position'], ['left', 'above'])) {
+            if(in_array($settings['icon_position'] ?? 'left', ['left', 'above'])) {
                 $this->render_icon($settings);
             }
 
-            $heading_tag = $settings['heading_tag'];
-            echo '<' . esc_html($heading_tag) . ' class="lucide-heading">'.esc_html($settings['heading_text']).'</' . esc_html($heading_tag) . '>';
+            $heading_tag = $settings['heading_tag'] ?? 'h2';
+            echo '<' . esc_html($heading_tag) . ' class="lucide-heading">'.esc_html($settings['heading_text'] ?? '').'</' . esc_html($heading_tag) . '>';
 
-            if(in_array($settings['icon_position'], ['right', 'below'])) {
+            if(in_array($settings['icon_position'] ?? 'left', ['right', 'below'])) {
                 $this->render_icon($settings);
             }
             echo '</div>';
@@ -234,8 +234,12 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     private function render_icon($settings) {
-        echo '<i class="lucide lucide-' . esc_attr($settings['icon_name']) . '" 
-               style="stroke-width: ' . esc_attr($settings['icon_stroke_width']) . '; color: ' . esc_attr($settings['icon_color']) . '"></i>';
+        $icon_name = $settings['icon_name'] ?? 'circle';
+        $stroke_width = $settings['icon_stroke_width'] ?? 2;
+        $icon_color = $settings['icon_color'] ?? '#000000';
+
+        echo '<i class="lucide lucide-' . esc_attr($icon_name) . '" 
+               style="stroke-width: ' . absint($stroke_width) . 'px; color: ' . esc_attr($icon_color) . '"></i>';
         echo '<script>
             if (typeof Lucide !== "undefined") {
                 Lucide.createIcons();

@@ -41,6 +41,9 @@ function enqueue_lucide_scripts() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_lucide_scripts');
 
+// Disable conflicting ACF dynamic tags
+add_filter('elementor_pro/dynamic_tags/acf/text', '__return_false');
+
 // Elementor Widget Registration
 add_action('elementor/widgets/widgets_registered', function() {
     if ( defined('ELEMENTOR_PATH') && class_exists('Elementor\\Widget_Base') ) {
