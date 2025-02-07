@@ -207,12 +207,12 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
-    protected function get_settings_for_display($setting_key = null) {
+    public function get_settings_for_display($setting_key = null) {
         $settings = parent::get_settings_for_display($setting_key);
         
-        // Type safety check
         if (!is_array($settings)) {
-            return [];
+            error_log('[Lucide Widget] Invalid settings type: ' . gettype($settings));
+            return $this->get_default_settings();
         }
         
         return $settings;

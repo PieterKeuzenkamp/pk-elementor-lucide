@@ -1,5 +1,8 @@
 # Changelog
 
+## [Hotfix 1.1.4] - 2025-02-07
+- Fixed method visibility in widget class
+
 ## [Hotfix 1.1.2] - 2025-02-07
 - Added null safety checks for widget settings
 - Disabled conflicting ACF dynamic tags integration
