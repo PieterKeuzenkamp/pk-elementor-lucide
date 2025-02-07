@@ -1,5 +1,10 @@
 # Changelog
 
+## [Hotfix 1.1.6] - 2025-02-07
+- Added absolute type casting for settings
+- Fixed deprecated parameter warnings
+- Enhanced ACF value sanitization
+
 ## [Hotfix 1.1.5] - 2025-02-07
 - Added comprehensive settings validation
 - Finalized ACF dynamic tags integration

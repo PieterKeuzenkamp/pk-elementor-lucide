@@ -211,9 +211,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         try {
             $settings = parent::get_settings_for_display($setting_key);
             
-            if (!is_array($settings)) {
-                throw new \RuntimeException('Invalid settings type received');
-            }
+            // Ensure array type
+            $settings = (array)$settings;
             
             return array_merge($this->get_default_settings(), $settings);
             

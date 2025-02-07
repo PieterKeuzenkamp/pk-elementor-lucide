@@ -44,8 +44,13 @@ add_action('wp_enqueue_scripts', 'enqueue_lucide_scripts');
 // Update ACF filter
 add_filter('elementor_pro/dynamic_tags/acf/text', function($value) {
   if (!is_array($value)) {
-      return ['', '', 'type' => 'text'];
+      $value = ['', '', 'type' => 'text'];
   }
+  
+  // Ensure string values for processing
+  $value[0] = $value[0] ?? '';
+  $value[1] = $value[1] ?? '';
+  
   return array_merge($value, ['type' => 'text']);
 });
 
