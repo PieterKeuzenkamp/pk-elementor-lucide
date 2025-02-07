@@ -1,27 +1,22 @@
 <?php
-/*
-Plugin Name: PK Elementor Lucide
-Description: Add customizable Lucide icons in Elementor widgets with advanced styling options.
-Version: 1.1.0
-Author: Pieter Keuzenkamp
-*/
+/**
+ * Plugin Name: PK Elementor Lucide Icons
+ * Description: Voegt Lucide icons toe aan Elementor
+ * Version: 1.1.6
+ * Author: Pieter Keuzenkamp
+ * Text Domain: pk-elementor-lucide
+ */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
+defined('ABSPATH') || exit;
 
-define('PK_ELEMENTOR_LUCIDE_VERSION', '1.1.0');
+// Load translations
+add_action('init', function() {
+    load_plugin_textdomain('pk-elementor-lucide', false, dirname(plugin_basename(__FILE__)) . '/languages');
+});
 
-// Enqueue Lucide Script and Styles
-function lucide_enqueue_scripts() {
-    wp_enqueue_style(
-        'pk-elementor-lucide',
-        plugins_url('css/pk-elementor-lucide.css', __FILE__),
-        [],
-        '1.1.6'
-    );
-
-    wp_enqueue_script(
+// Register scripts and styles
+add_action('wp_enqueue_scripts', function() {
+    wp_register_script(
         'lucide-icons',
         'https://unpkg.com/lucide@latest',
         [],
@@ -29,33 +24,40 @@ function lucide_enqueue_scripts() {
         true
     );
 
-    wp_enqueue_script(
+    wp_register_script(
         'pk-elementor-lucide-init',
         plugins_url('assets/js/lucide-init.js', __FILE__),
         ['lucide-icons'],
         '1.1.6',
         true
     );
-}
-add_action('wp_enqueue_scripts', 'lucide_enqueue_scripts');
-add_action('elementor/frontend/after_register_scripts', 'lucide_enqueue_scripts');
 
-// Update ACF filter
-add_filter('elementor_pro/dynamic_tags/acf/text', function($value) {
-  if (!is_array($value)) {
-      $value = ['', '', 'type' => 'text'];
-  }
-  
-  // Ensure string values for processing
-  $value[0] = $value[0] ?? '';
-  $value[1] = $value[1] ?? '';
-  
-  return array_merge($value, ['type' => 'text']);
+    wp_enqueue_style(
+        'pk-elementor-lucide',
+        plugins_url('css/pk-elementor-lucide.css', __FILE__),
+        [],
+        '1.1.6'
+    );
+
+    wp_enqueue_script('lucide-icons');
+    wp_enqueue_script('pk-elementor-lucide-init');
 });
 
-// Elementor Widget Registration
-add_action('elementor/widgets/widgets_registered', function() {
-    if ( defined('ELEMENTOR_PATH') && class_exists('Elementor\\Widget_Base') ) {
-        require_once(__DIR__ . '/widgets/lucide-icon-widget.php');
+// Update ACF filter with proper error handling
+add_filter('elementor_pro/dynamic_tags/acf/text', function($value) {
+    if (!is_array($value)) {
+        return ['', '', 'type' => 'text'];
     }
+    
+    // Ensure string values for processing
+    $value[0] = is_string($value[0]) ? $value[0] : '';
+    $value[1] = is_string($value[1]) ? $value[1] : '';
+    
+    return array_merge($value, ['type' => 'text']);
+});
+
+// Register Elementor widget
+add_action('elementor/widgets/register', function($widgets_manager) {
+    require_once(__DIR__ . '/widgets/lucide-icon-widget.php');
+    $widgets_manager->register(new \Lucide_Icon_Widget());
 });

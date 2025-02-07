@@ -203,18 +203,24 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
+    public function get_style_depends() {
+        return ['pk-elementor-lucide'];
+    }
+
+    public function get_script_depends() {
+        return ['lucide-icons', 'pk-elementor-lucide-init'];
+    }
+
     public function get_settings_for_display($setting_key = null) {
         try {
             $settings = parent::get_settings_for_display($setting_key);
-            
-            // Ensure array type
-            $settings = (array)$settings;
-            
-            return array_merge($this->get_default_settings(), $settings);
-            
+            if ($setting_key === null) {
+                return array_merge($this->get_default_settings(), (array)$settings);
+            }
+            return $settings[$setting_key] ?? $this->get_default_settings()[$setting_key] ?? null;
         } catch (\Throwable $e) {
-            error_log('[Lucide Widget] Critical error: ' . $e->getMessage());
-            return $this->get_default_settings();
+            error_log('[Lucide Widget] Settings error: ' . $e->getMessage());
+            return $setting_key === null ? $this->get_default_settings() : null;
         }
     }
     
@@ -269,11 +275,15 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         );
     }
 
-    public function __construct() {
-        parent::__construct();
-        add_action('wp_footer', function() {
-            echo '<script src="https://unpkg.com/lucide@latest"></script>';
-        });
+    public function __construct($data = [], $args = null) {
+        parent::__construct($data, $args);
+        
+        wp_register_style(
+            'pk-elementor-lucide',
+            plugins_url('css/pk-elementor-lucide.css', dirname(__FILE__)),
+            [],
+            '1.1.6'
+        );
     }
 }
 
