@@ -207,6 +207,17 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
+    protected function get_settings_for_display($setting_key = null) {
+        $settings = parent::get_settings_for_display($setting_key);
+        
+        // Type safety check
+        if (!is_array($settings)) {
+            return [];
+        }
+        
+        return $settings;
+    }
+
     protected function render() {
         $settings = $this->get_settings_for_display();
         $has_heading = $settings['show_heading'] ?? 'no';
