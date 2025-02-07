@@ -14,32 +14,31 @@ define('PK_ELEMENTOR_LUCIDE_VERSION', '1.1.0');
 
 // Enqueue Lucide Script and Styles
 function lucide_enqueue_scripts() {
-    wp_enqueue_script('lucide-icons', 'https://unpkg.com/lucide@latest', array(), null, true);
-    wp_enqueue_style('lucide-icons-style', plugin_dir_url(__FILE__) . 'css/pk-elementor-lucide.css');
+    wp_enqueue_style(
+        'pk-elementor-lucide',
+        plugins_url('css/pk-elementor-lucide.css', __FILE__),
+        [],
+        '1.1.6'
+    );
+
+    wp_enqueue_script(
+        'lucide-icons',
+        'https://unpkg.com/lucide@latest',
+        [],
+        null,
+        true
+    );
+
+    wp_enqueue_script(
+        'pk-elementor-lucide-init',
+        plugins_url('assets/js/lucide-init.js', __FILE__),
+        ['lucide-icons'],
+        '1.1.6',
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'lucide_enqueue_scripts');
-
-// Enqueue Lucide Script and Initialization
-function enqueue_lucide_scripts() {
-  // Lucide core
-  wp_enqueue_script(
-    'lucide-core', 
-    'https://unpkg.com/lucide@latest', 
-    array(), 
-    null, 
-    false // Load in header
-  );
-  
-  // Our initialization
-  wp_enqueue_script(
-    'lucide-init',
-    plugin_dir_url(__FILE__) . 'assets/js/lucide-init.js',
-    array('lucide-core'),
-    filemtime(plugin_dir_path(__FILE__) . 'assets/js/lucide-init.js'),
-    true
-  );
-}
-add_action('wp_enqueue_scripts', 'enqueue_lucide_scripts');
+add_action('elementor/frontend/after_register_scripts', 'lucide_enqueue_scripts');
 
 // Update ACF filter
 add_filter('elementor_pro/dynamic_tags/acf/text', function($value) {
