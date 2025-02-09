@@ -309,17 +309,21 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
     }
 
     protected function render_icon($settings) {
-        $icon_name = esc_attr($settings['icon_name'] ?? 'circle');
-        $stroke_width = esc_attr($settings['icon_stroke_width'] ?? 2);
+        // Haal alle settings opnieuw op
+        $all_settings = $this->get_settings_for_display();
         
-        // Haal de kleur direct op uit de settings
-        $settings = $this->get_settings_for_display();
-        $color = !empty($settings['icon_color']) ? $settings['icon_color'] : '#000000';
+        $icon_name = esc_attr($all_settings['icon_name'] ?? 'circle');
+        $stroke_width = esc_attr($all_settings['icon_stroke_width'] ?? 2);
+        $color = $all_settings['icon_color'];
+        
+        // Debug log
+        error_log('Debug - Icon Color Setting: ' . print_r($color, true));
+        error_log('Debug - All Settings: ' . print_r($all_settings, true));
         
         printf(
             '<div class="lucide-icon" style="--icon-size: 24px;"><i data-lucide="%s" style="color: %s; stroke-width: %s;"></i></div>',
             $icon_name,
-            esc_attr($color),
+            $color ? esc_attr($color) : '#000000',
             $stroke_width
         );
     }
