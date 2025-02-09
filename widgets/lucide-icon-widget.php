@@ -201,6 +201,52 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         );
 
         $this->end_controls_section();
+
+        // Style Section voor Heading Typography
+        $this->start_controls_section(
+            'heading_style_section',
+            [
+                'label' => __('Heading Style', 'pk-elementor-lucide'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'condition' => [
+                    'show_heading' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'heading_typography',
+                'label' => __('Typography', 'pk-elementor-lucide'),
+                'selector' => '{{WRAPPER}} .lucide-icon-heading',
+            ]
+        );
+
+        $this->add_control(
+            'heading_color',
+            [
+                'label' => __('Heading Color', 'pk-elementor-lucide'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .lucide-icon-heading' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'heading_margin',
+            [
+                'label' => __('Margin', 'pk-elementor-lucide'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .lucide-icon-heading' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
     }
 
     public function get_style_depends() {
@@ -249,7 +295,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
             }
 
             $heading_tag = $settings['heading_tag'] ?? 'h2';
-            echo '<' . esc_html($heading_tag) . ' class="lucide-heading">'.esc_html($settings['heading_text'] ?? '').'</' . esc_html($heading_tag) . '>';
+            echo '<' . esc_html($heading_tag) . ' class="lucide-icon-text">'.esc_html($settings['heading_text'] ?? '').'</' . esc_html($heading_tag) . '>';
 
             if(in_array($settings['icon_position'] ?? 'left', ['right', 'below'])) {
                 $this->render_icon($settings);
