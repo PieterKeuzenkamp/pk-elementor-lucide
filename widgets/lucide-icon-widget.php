@@ -63,7 +63,8 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'default' => '#000000',
                 'global' => [
-                    'default' => \Elementor\Core\Common\Modules\Assets_Manager::GLOBAL_COLOR_1,
+                    'active' => true,
+                    'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,
                 ],
             ]
         );
@@ -317,16 +318,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         
         $icon_name = esc_attr($all_settings['icon_name'] ?? 'circle');
         $stroke_width = esc_attr($all_settings['icon_stroke_width'] ?? 2);
-        
-        // Haal de kleur op, ondersteun global colors
-        $color = \Elementor\Scheme_Color::COLOR_1;
-        if (!empty($all_settings['__globals__']['icon_color'])) {
-            // Global color is ingesteld
-            $color = $all_settings['icon_color'];
-        } elseif (!empty($all_settings['icon_color'])) {
-            // Custom color is ingesteld
-            $color = $all_settings['icon_color'];
-        }
+        $color = $all_settings['icon_color'];
         
         printf(
             '<div class="lucide-icon" style="--icon-size: 24px;"><i data-lucide="%s" style="color: %s; stroke-width: %s;"></i></div>',
