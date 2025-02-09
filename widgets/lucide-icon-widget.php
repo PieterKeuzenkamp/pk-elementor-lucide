@@ -219,7 +219,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
             [
                 'name' => 'heading_typography',
                 'label' => __('Typography', 'pk-elementor-lucide'),
-                'selector' => '{{WRAPPER}} .lucide-icon-heading',
+                'selector' => '{{WRAPPER}} .lucide-icon-text, {{WRAPPER}} .lucide-icon-text *',
             ]
         );
 
@@ -229,7 +229,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
                 'label' => __('Heading Color', 'pk-elementor-lucide'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .lucide-icon-heading' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .lucide-icon-text' => 'color: {{VALUE}};',
                 ],
             ]
         );
@@ -241,7 +241,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
                 'selectors' => [
-                    '{{WRAPPER}} .lucide-icon-heading' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .lucide-icon-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
         );
