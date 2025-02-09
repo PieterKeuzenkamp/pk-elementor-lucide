@@ -314,7 +314,7 @@ class Lucide_Icon_Widget extends \Elementor\Widget_Base {
         $color = esc_attr($settings['icon_color'] ?? '#000000');
         
         printf(
-            '<div class="lucide-icon" style="--icon-stroke-width: %s; color: %s;" data-lucide="%s"></div>',
+            '<div class="lucide-icon" style="--lucide-stroke-width: %s; --lucide-color: %s;" data-lucide="%s"></div>',
             $stroke_width,
             $color,
             $icon_name
